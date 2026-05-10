@@ -1,0 +1,10 @@
+:root {
+  /*color variables*/
+  --primary-100: #f3edf7;
+  --primary-300: #b7a8d6;
+  --primary-500: #68509c;
+
+  --neutral-100: #f5f5f5;
+  --neutral-300: #999999;
+  --neutral-700: #49454f;
+}

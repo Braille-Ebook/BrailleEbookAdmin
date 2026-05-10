@@ -1,0 +1,23 @@
+.header {
+  width: 100%;
+  height: fit-content;
+  padding: 2rem 0;
+  background-color: white;
+  border-bottom: 1px solid var(--primary-500);
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+.icon {
+  width: 2rem;
+  height: 2rem;
+  margin-left: 2rem;
+}
+.icon:hover {
+  cursor: pointer;
+}
+.title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-500);
+}
