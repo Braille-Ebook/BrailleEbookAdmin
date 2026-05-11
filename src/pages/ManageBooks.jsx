@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { getBooks, deleteBooks } from "../apis/book.js";
 import Input from "../components/Input.jsx";
 import Dropdown from "../components/Dropdown.jsx";
 import Button from "../components/Button.jsx";
@@ -78,13 +80,34 @@ export default function ManageBooks() {
     sort: "",
     sortDir: "",
   });
+  const [submittedQuery, setSubmittedQuery] = useState(null);
   const [selectedBooks, setSelectedBooks] = useState([]);
+
+  const { data } = useQuery({
+    queryKey: ["books", submittedQuery, qtype],
+    queryFn: () => getBooks({ ...submittedQuery, qtype: qtype.type }),
+    enabled: !!submittedQuery,
+  });
+
+  const mutation = useMutation({
+    mutationFn: deleteBooks,
+  });
 
   return (
     <div className={styles.page}>
       <h2 className={styles.title}>Manage Books</h2>
       <div className={styles.search}>
-        <Input placeholder="검색하기" className={styles.input} />
+        <Input
+          value={query.q}
+          onChange={(e) => {
+            setQuery((prev) => ({
+              ...prev,
+              q: e.target.value,
+            }));
+          }}
+          placeholder="검색하기"
+          className={styles.input}
+        />
         <Dropdown
           menu={queryType}
           value={qtype}
@@ -94,7 +117,14 @@ export default function ManageBooks() {
             }
           }}
         />
-        <Button variant="rectangle">찾기</Button>
+        <Button
+          variant="rectangle"
+          onClick={() => {
+            setSubmittedQuery(query);
+          }}
+        >
+          찾기
+        </Button>
       </div>
       <table className={styles.table}>
         <thead>
@@ -141,7 +171,14 @@ export default function ManageBooks() {
         </tbody>
       </table>
       <div className={styles.deleteBtn}>
-        <Button variant="rectangle">삭제하기</Button>
+        <Button
+          variant="rectangle"
+          onClick={() => {
+            selectedBooks.forEach((id) => mutation.mutate(id));
+          }}
+        >
+          삭제하기
+        </Button>
       </div>
     </div>
   );

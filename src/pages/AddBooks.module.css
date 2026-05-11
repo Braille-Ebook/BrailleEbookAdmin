@@ -20,7 +20,13 @@
   margin: auto;
   margin-bottom: 2.5rem;
 }
-
+.dateInput {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+  color: var(--neutral-300);
+}
 .btn {
   margin: 3rem auto;
   height: 3rem;

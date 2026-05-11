@@ -1,18 +1,17 @@
-import React from "react";
 import styles from "./Button.module.css";
 
 export default function Button({
   variant,
   children,
   disabled = false,
-  onClick,
   className,
+  ...props
 }) {
   return (
     <button
       type="button"
       disabled={disabled}
-      onClick={onClick}
+      {...props}
       className={`${styles.btn} ${styles[`btn-${variant}`]} ${disabled && styles.disabled} ${className}`}
     >
       {children}

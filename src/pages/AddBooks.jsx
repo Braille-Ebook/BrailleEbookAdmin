@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { addBooks } from "../apis/book";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import Dropdown from "../components/Dropdown";
@@ -9,25 +11,31 @@ export default function AddBooks() {
   const [selected, setSelected] = useState(constant[0]);
   const [data, setData] = useState({
     title: "",
-    genre: "",
     author: "",
     translator: "",
     publisher: "",
-    publish_date: null,
+    publish_date: "",
     summary: "",
     ISBN: "",
     image_url: "",
     pdf_url: "",
   });
+  const mutation = useMutation({
+    mutationFn: addBooks,
+    onError: (err) => {
+      console.error(err);
+    },
+  });
   return (
-    <div className={styles.page}>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        mutation.mutate({ ...data, genre: selected.name });
+      }}
+      className={styles.page}
+    >
       <h2 className={styles.title}>책 추가하기</h2>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-        }}
-        className={styles.form}
-      >
+      <div className={styles.form}>
         <Input
           placeholder="제목을 입력해주세요"
           value={data.title}
@@ -57,6 +65,28 @@ export default function AddBooks() {
           value={data.publisher}
           onChange={(e) => {
             setData((prev) => ({ ...prev, publisher: e.target.value }));
+          }}
+          className={styles.input}
+        />
+        <div className={styles.dateInput}>
+          <h2>출판일</h2>
+          <input
+            type="date"
+            value={data.publish_date ?? ""}
+            onChange={(e) => {
+              setData((prev) => ({
+                ...prev,
+                publish_date: e.target.value,
+              }));
+            }}
+          />
+        </div>
+        <Input
+          multiline={true}
+          placeholder="줄거리를 입력해주세요"
+          value={data.summary}
+          onChange={(e) => {
+            setData((prev) => ({ ...prev, summary: e.target.value }));
           }}
           className={styles.input}
         />
@@ -93,10 +123,15 @@ export default function AddBooks() {
             }
           }}
         />
-      </form>
-      <Button className={styles.btn} variant="rectangle">
+      </div>
+      <Button
+        type="submit"
+        variant="rectangle"
+        disabled={mutation.isPending}
+        className={styles.btn}
+      >
         추가하기
       </Button>
-    </div>
+    </form>
   );
 }
