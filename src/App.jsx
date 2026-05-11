@@ -3,6 +3,7 @@ import MainLayout from "./layouts/MainLayout";
 import Home from "./pages/Home";
 import AddBooks from "./pages/AddBooks";
 import ManageBooks from "./pages/ManageBooks";
+import Login from "./pages/Login";
 import "./App.css";
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
           <Route path="/add" element={<AddBooks />} />
           <Route path="/manage" element={<ManageBooks />} />
         </Route>
+        <Route path="/login" element={<Login />} />
       </Routes>
     </>
   );

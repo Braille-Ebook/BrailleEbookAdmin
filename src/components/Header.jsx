@@ -1,4 +1,4 @@
-import Hamburger from "../icons/hamburger.png";
+import Hamburger from "../assets/hamburger.png";
 import styles from "./Header.module.css";
 
 export default function Header({ ...props }) {

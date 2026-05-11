@@ -2,7 +2,7 @@ import { useState } from "react";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import Dropdown from "../components/Dropdown";
-import constant from "../components/constant";
+import constant from "../constants/dropdown";
 import styles from "./AddBooks.module.css";
 
 export default function AddBooks() {
