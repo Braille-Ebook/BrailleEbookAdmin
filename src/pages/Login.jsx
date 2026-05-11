@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import Button from "../components/Button.jsx";
 import InputBlock from "../components/InputBlock.jsx";
 import { signIn } from "../apis/auth.js";
@@ -19,9 +19,15 @@ export default function Login() {
   const mutation = useMutation({
     mutationFn: signIn,
     onSuccess: () => {
+      localStorage.setItem("isLogin", "true");
       navigate("/");
     },
   });
+  const isLogin = localStorage.getItem("isLogin");
+
+  if (isLogin === "true") {
+    return <Navigate to="/" replace />;
+  }
   return (
     <div className={styles.loginPage}>
       <div className={styles.loginContainer}>
