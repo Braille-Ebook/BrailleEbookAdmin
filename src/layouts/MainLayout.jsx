@@ -22,10 +22,10 @@ export default function MainLayout() {
   return (
     <div className={styles.layout}>
       <Header onClick={() => setIsNavOpen((prev) => !prev)} />
-      <div className={styles.content}>
+      <div onClick={() => setIsNavOpen(false)} className={styles.content}>
         {isNavOpen && (
           <div className={styles.navContainer}>
-            <nav className={styles.nav}>
+            <nav className={styles.nav} onClick={(e) => e.stopPropagation()}>
               <Navigation onClick={() => setIsNavOpen(false)} />
             </nav>
           </div>
