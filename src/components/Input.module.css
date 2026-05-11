@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+  align-items: stretch;
+  background-color: var(--neutral-100);
+  border-radius: 1.2rem;
+  padding: 1.5rem 1.6rem;
+}
+.container input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: none;
+}
+.container textarea {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: none;
+  resize: none;
+}

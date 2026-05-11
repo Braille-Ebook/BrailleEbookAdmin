@@ -1,4 +1,27 @@
 .page {
   flex: 1;
   height: 100%;
+  padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+}
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  padding: 5rem 0;
+}
+.form {
+  width: 100%;
+  max-width: 80rem;
+  margin: auto;
+}
+.input {
+  margin: auto;
+  margin-bottom: 2.5rem;
+}
+
+.btn {
+  margin: 3rem auto;
+  height: 3rem;
 }

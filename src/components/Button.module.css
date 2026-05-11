@@ -1,0 +1,30 @@
+/*사각형 버튼*/
+.btn {
+  text-align: center;
+}
+.btn:hover {
+  cursor: pointer;
+}
+.btn-rectangle {
+  border-radius: 0.8rem;
+  padding: 1rem 2.3rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--primary-100);
+  background-color: var(--primary-500);
+}
+.btn-circle {
+  border-radius: 50%;
+  border: 1px solid var(--primary-500);
+  padding: 1.2rem 1.2rem;
+}
+.btn-circle-selected {
+  border-radius: 50%;
+  padding: 1.2rem 1.2rem;
+  color: var(--primary-100);
+  background-color: var(--primary-500);
+}
+.btn.disabled {
+  color: var(--neutral-400);
+  background-color: var(--neutral-100);
+}
