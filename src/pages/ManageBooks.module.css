@@ -2,3 +2,40 @@
   flex: 1;
   height: 100%;
 }
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  padding: 5rem 0;
+}
+.search {
+  display: flex;
+  gap: 1rem;
+  padding: 0 3rem;
+}
+.input {
+  flex: 1;
+}
+.table {
+  width: 90vw;
+  margin: 3rem auto;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.tableHead {
+  border-bottom: 1px solid var(--primary-100);
+}
+
+.table th,
+.table td {
+  text-align: center;
+  padding: 1rem;
+  word-break: break-word;
+}
+.deleteBtn {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 5rem 0;
+}

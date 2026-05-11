@@ -11,9 +11,11 @@ export default function MainLayout() {
       <Header onClick={() => setIsNavOpen((prev) => !prev)} />
       <div className={styles.content}>
         {isNavOpen && (
-          <nav className={styles.nav}>
-            <Navigation onClick={() => setIsNavOpen(false)} />
-          </nav>
+          <div className={styles.navContainer}>
+            <nav className={styles.nav}>
+              <Navigation onClick={() => setIsNavOpen(false)} />
+            </nav>
+          </div>
         )}
         <Outlet />
       </div>

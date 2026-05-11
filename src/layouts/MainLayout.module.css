@@ -8,6 +8,12 @@
   flex: 1;
   display: flex;
 }
+.navContainer {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.2);
+}
 .nav {
   width: 30rem;
   height: 100%;
@@ -17,4 +23,6 @@
   flex-direction: column;
   padding: 2rem 0;
   border-right: var(--primary-100) solid 0.2rem;
+  background-color: white;
+  position: absolute;
 }
