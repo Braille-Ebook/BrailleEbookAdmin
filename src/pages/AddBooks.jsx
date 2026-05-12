@@ -8,8 +8,7 @@ import constant from "../constants/dropdown";
 import styles from "./AddBooks.module.css";
 
 export default function AddBooks() {
-  const [selected, setSelected] = useState(constant[0]);
-  const [data, setData] = useState({
+  const initData = {
     title: "",
     author: "",
     translator: "",
@@ -19,9 +18,14 @@ export default function AddBooks() {
     ISBN: "",
     image_url: "",
     pdf_url: "",
-  });
+  };
+  const [selected, setSelected] = useState(constant[0]);
+  const [data, setData] = useState(initData);
   const mutation = useMutation({
     mutationFn: addBooks,
+    onSuccess: () => {
+      setData(initData);
+    },
     onError: (err) => {
       console.error(err);
     },

@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useState, useEffect } from "react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getBooks, deleteBooks } from "../apis/book.js";
 import Input from "../components/Input.jsx";
 import Dropdown from "../components/Dropdown.jsx";
@@ -74,29 +74,54 @@ const dummy = [
 ];
 
 export default function ManageBooks() {
+  const queryClient = useQueryClient();
   const [qtype, setQtype] = useState(queryType[0]);
   const [query, setQuery] = useState({
     q: "",
     sort: "",
     sortDir: "",
   });
-  const [submittedQuery, setSubmittedQuery] = useState(null);
+  const [submittedQuery, setSubmittedQuery] = useState({
+    q: "",
+    sort: "",
+    sortDir: "",
+  });
   const [selectedBooks, setSelectedBooks] = useState([]);
 
   const { data } = useQuery({
-    queryKey: ["books", submittedQuery, qtype],
+    queryKey: [
+      "getBooks",
+      submittedQuery.q,
+      submittedQuery.sort,
+      submittedQuery.sortDir,
+      qtype.type,
+    ],
     queryFn: () => getBooks({ ...submittedQuery, qtype: qtype.type }),
     enabled: !!submittedQuery,
+    retry: false,
   });
 
   const mutation = useMutation({
     mutationFn: deleteBooks,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["getBooks"] });
+    },
   });
+
+  useEffect(() => {
+    setSelectedBooks([]);
+  }, [data?.data]);
 
   return (
     <div className={styles.page}>
       <h2 className={styles.title}>Manage Books</h2>
-      <div className={styles.search}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          setSubmittedQuery(query);
+        }}
+        className={styles.search}
+      >
         <Input
           value={query.q}
           onChange={(e) => {
@@ -117,15 +142,10 @@ export default function ManageBooks() {
             }
           }}
         />
-        <Button
-          variant="rectangle"
-          onClick={() => {
-            setSubmittedQuery(query);
-          }}
-        >
+        <Button variant="rectangle" type="submit">
           찾기
         </Button>
-      </div>
+      </form>
       <table className={styles.table}>
         <thead>
           <tr className={styles.tableHead}>
@@ -138,7 +158,7 @@ export default function ManageBooks() {
         </thead>
 
         <tbody>
-          {dummy.map((d) => {
+          {data?.data?.map((d) => {
             const isSelected = selectedBooks.includes(d.book_id);
 
             return (
@@ -173,8 +193,10 @@ export default function ManageBooks() {
       <div className={styles.deleteBtn}>
         <Button
           variant="rectangle"
+          type="button"
           onClick={() => {
             selectedBooks.forEach((id) => mutation.mutate(id));
+            setSelectedBooks([]);
           }}
         >
           삭제하기
