@@ -22,6 +22,9 @@ export default function Login() {
       localStorage.setItem("isLogin", "true");
       navigate("/");
     },
+    onError: (e) => {
+      alert("잘못된 로그인입니다.");
+    },
   });
   const isLogin = localStorage.getItem("isLogin");
 
