@@ -1,6 +1,5 @@
 import axios from "axios";
-export const BASE_URL = "http://3.35.218.85:3000/admin";
-//"http://localhost:3000/admin"
+export const BASE_URL = "https://brailleebook.duckdns.org/admin";
 
 const defaultAxios = axios.create({
   baseURL: BASE_URL,
